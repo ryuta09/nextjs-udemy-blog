@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
 import { NavigationMenu, NavigationMenuList } from "@radix-ui/react-navigation-menu"
+import SearchBox from "../post/SearchBox"
 export default function PublicHeader() {
   return (
     <>
@@ -26,7 +27,8 @@ export default function PublicHeader() {
             </NavigationMenu>
 
             <div className="flex items-center gap-4">
-              <Input placeholder="記事を検索" className="w-[200px] lg:w-[300px] bg-white" />
+              {/* <Input placeholder="記事を検索" className="w-[200px] lg:w-[300px] bg-white" /> */}
+              <SearchBox />
               <Button variant={"outline"} asChild>
                 <Link href="/login">ログイン</Link>
               </Button>

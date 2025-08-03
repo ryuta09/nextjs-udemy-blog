@@ -1,8 +1,17 @@
 import PostCard from "@/components/post/PostCard";
 import { Post } from "@/app/types/post";
-import { getPosts } from "@/lib/post";
-export default async function PostPage() {
-  const posts = await getPosts() as Post[]
+import { getPosts, searchPosts } from "@/lib/post";
+
+type searchParams = {
+  search?: string
+}
+
+export default async function PostPage({searchParams}: {searchParams: Promise<searchParams>}) {
+  const resolvedSearchParams = await searchParams;
+  const query = resolvedSearchParams.search || ''
+
+  const posts = query ? await searchPosts(query) as Post[] : await getPosts() as Post[]
+  // const posts = await getPosts() as Post[]
   return (
     <>
       <div className="container mx-auto px-4 py-8">
