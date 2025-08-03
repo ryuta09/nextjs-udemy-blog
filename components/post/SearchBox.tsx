@@ -11,7 +11,7 @@ export default function SearchBox() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearch(search);
-    }, 500)
+    }, 100)
     return () => clearTimeout(timer);
   }, [search])
 

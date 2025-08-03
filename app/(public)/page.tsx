@@ -11,7 +11,6 @@ export default async function PostPage({searchParams}: {searchParams: Promise<se
   const query = resolvedSearchParams.search || ''
 
   const posts = query ? await searchPosts(query) as Post[] : await getPosts() as Post[]
-  // const posts = await getPosts() as Post[]
   return (
     <>
       <div className="container mx-auto px-4 py-8">
