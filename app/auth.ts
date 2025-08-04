@@ -22,16 +22,15 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
           .object({ email: z.string().email(), password: z.string().min(8) })
           .safeParse(credentials);
         
-        if(parsedCredentials.success) {
+        if (parsedCredentials.success) {
           const { email, password } = parsedCredentials.data;
-          const user = await getUser(email)
-          if(!user) return null
-          const passwordMatch = await bcryptjs.compare(password, user.password)
-          if(passwordMatch) return user
+          const user = await getUser(email); // ユーザー取得
+          if (!user) return null;
+          const passwordsMatch = await bcryptjs.compare(password, user.password); // パスワード比較
+          if (passwordsMatch) return user;
         }
-
-      },
+        return null; // 認証失敗
+      }
     }),
   ],
-  
 });
