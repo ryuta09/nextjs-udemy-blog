@@ -10,9 +10,6 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import Link from "next/link";
-import { Label } from '@/components/ui/label'
 
 export default function LoginForm() {
   const searchParams = useSearchParams();
