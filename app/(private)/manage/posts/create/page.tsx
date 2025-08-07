@@ -7,12 +7,18 @@ import "highlight.js/styles/github.css"; // コードハイライト用のスタ
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useState, useActionState } from "react";
+import { createPost } from "@/lib/actions/createPost";
+
 
 export default function createPage() {
   const [content, setContent] = useState('')
   const [contentLength, setContentLength] = useState<number>(0);
   const [preview, setPreview] = useState(false);
+  const [state, formAction] = useActionState(createPost, {
+    success: false,
+    errors: {}
+  })
 
   function handleContentChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     const value = e.target.value
@@ -23,10 +29,13 @@ export default function createPage() {
   return (
     <div className="container mx-auto mt-10">
       <h1 className="text-2xl font-bold mb-4 ">新規記事投稿(MarkDown対応)</h1>
-      <form action="" className="space-y-4">
+      <form action={formAction} className="space-y-4">
         <div>
           <Label htmlFor="title">タイトル</Label>
           <Input type="text" name="title" id="title" placeholder="タイトルを入力してください" />
+          {state.errors.title && (
+            <p className='text-red-500 text-sm mt-1'>{state.errors.title.join(',')}</p>
+          )}
         </div>
         <div>
           <Label htmlFor="topImage">トップ画像</Label>
@@ -36,6 +45,9 @@ export default function createPage() {
             accept="image/*"
             name="topImage"
           />
+          {state.errors.topImage && (
+            <p className='text-red-500 text-sm mt-1'>{state.errors.topImage.join(',')}</p>
+          )}
         </div>
         <div>
           <Label htmlFor="content">内容(Markdown)</Label>
@@ -48,6 +60,9 @@ export default function createPage() {
             value={content}
             onChange={handleContentChange}
           />
+          {state.errors.content && (
+            <p className='text-red-500 text-sm mt-1'>{state.errors.content.join(',')}</p>
+          )}
         </div>
         <div className="text-right text-sm text-gray-500 mt-1">
           文字数 : {contentLength}
