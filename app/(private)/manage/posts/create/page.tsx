@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState, useActionState } from "react";
 import { createPost } from "@/lib/actions/createPost";
-
+import "highlight.js/styles/github.css"; // コードハイライト用のスタイル
 
 export default function createPage() {
   const [content, setContent] = useState('')

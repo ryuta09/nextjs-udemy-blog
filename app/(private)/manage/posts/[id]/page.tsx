@@ -1,4 +1,4 @@
-import { getPost } from "@/lib/post";
+
 import { notFound } from "next/navigation";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
@@ -9,17 +9,26 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import Image from "next/image";
+import { getOwnPost } from "@/lib/ownPosts";
+import { auth } from "@/app/auth";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github.css";
-
 type Params = {
   params: Promise<{ id: string }>
 }
-export default async function postDetail({ params }: Params) {
+export default async function showPage({ params }: Params) {
+
+  const session = await auth()
+  const userId = session?.user?.id
+
+  if (!session?.user?.email || !userId) {
+    throw new Error('不正なリクエストです！')
+  }
+
   const { id } = await params;
-  const post = await getPost(id)
+  const post = await getOwnPost(userId, id)
 
   if (!post) {
     notFound()
