@@ -23,7 +23,7 @@ export default function DeletePostDialog({ postId, isOpen, onOpenChange }: Delet
         <AlertDialogHeader>
           <AlertDialogTitle>記事の削除</AlertDialogTitle>
           <AlertDialogDescription>
-           この記事を削除してもよろしいでしょうか？<br/>この操作は取り消しできません。
+            この記事を削除してもよろしいでしょうか？<br />この操作は取り消しできません。
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

@@ -6,11 +6,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import Link from "next/link"
-import DeletePostDialog from "./deletePostDialog"
 import { useState } from "react"
-import { set } from "date-fns"
-
-
+import DeletePostDialog from "./DeletePostDialog"
 
 export default function PostDropDownMenu({ postId }: { postId: string }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
