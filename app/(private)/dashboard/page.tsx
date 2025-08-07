@@ -3,6 +3,7 @@ import { auth } from '../../auth'
 import { Button } from "@/components/ui/button"
 import { tr } from "date-fns/locale"
 import PostDropDownMenu from "@/components/post/PostDropDownMenu"
+import Link from "next/link"
 export default async function dashboard() {
   const session = await auth()
   const userId = session?.user?.id
@@ -17,7 +18,11 @@ export default async function dashboard() {
       <div className="flex flex-col">
         <div className="flex justify-between">
           <h1 className="text-2xl font-bold mb-4">記事一覧</h1>
-          <Button>新規作成</Button>
+          <Button>
+            <Link href="/manage/posts/create">
+              新規作成
+            </Link>
+          </Button>
         </div>
         <table className="table-auto w-full border-collapse border">
           <thead>
