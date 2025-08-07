@@ -11,6 +11,7 @@ import { useState, useActionState, useEffect } from "react";
 import { createPost } from "@/lib/actions/createPost";
 import "highlight.js/styles/github.css"; // コードハイライト用のスタイル
 import Image from "next/image";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
 type EditPostFormProps = {
   post: {
@@ -30,7 +31,6 @@ export default function EditPostForm({ post }: EditPostFormProps) {
   const [published, setPublished] = useState(post.published);
   const [topImage, setTopImage] = useState(post.topImage);
   const [imagePreview, setImagePreview] = useState(post.topImage)
-  console.log("Image Preview:", imagePreview);
   const [state, formAction] = useActionState(createPost, {
     success: false,
     errors: {}
@@ -46,7 +46,6 @@ export default function EditPostForm({ post }: EditPostFormProps) {
     const file = e.target.files?.[0]
     if (file) {
       const previewUrl = URL.createObjectURL(file) // プレビュー用のURLを生成
-      console.log("Preview URL:", previewUrl);
       setImagePreview(previewUrl) // プレビューを更新
     }
   }
@@ -125,6 +124,17 @@ export default function EditPostForm({ post }: EditPostFormProps) {
             >{content}</ReactMarkdown>
           </div>
         )}
+
+        <RadioGroup value={published.toString()} name="published" onValueChange={(value) => setPublished(value === "true")}>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="true" id="published-one" />
+            <Label htmlFor="published-one">表示</Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="false" id="published-two" />
+            <Label htmlFor="published-two">非表示</Label>
+          </div>
+        </RadioGroup>
 
         <Button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">更新する</Button>
         <input type="hidden" name="postId" value={post.id} />
