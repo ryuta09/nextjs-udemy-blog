@@ -8,10 +8,11 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState, useActionState, useEffect } from "react";
-import { createPost } from "@/lib/actions/createPost";
+
 import "highlight.js/styles/github.css"; // コードハイライト用のスタイル
 import Image from "next/image";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { updatedPost } from "@/lib/actions/updatedPost";
 
 type EditPostFormProps = {
   post: {
@@ -31,7 +32,7 @@ export default function EditPostForm({ post }: EditPostFormProps) {
   const [published, setPublished] = useState(post.published);
   const [topImage, setTopImage] = useState(post.topImage);
   const [imagePreview, setImagePreview] = useState(post.topImage)
-  const [state, formAction] = useActionState(createPost, {
+  const [state, formAction] = useActionState(updatedPost, {
     success: false,
     errors: {}
   })
